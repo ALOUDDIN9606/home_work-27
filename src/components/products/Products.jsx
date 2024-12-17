@@ -6,7 +6,7 @@ import "./Products.css"
 import { useNavigate } from 'react-router-dom';
 
 
-const Products = ({data, isAdmin, style}) => {
+const Products = ({data, isAdmin, style: {parent, child}, title}) => {
   const navigate = useNavigate()
 
   const handleDelete = id => {
@@ -19,7 +19,7 @@ const Products = ({data, isAdmin, style}) => {
   }
 
   const productItems = data?.map((product)=> (
-    <div key={product.id} className='w-full min-w-[262px] '>
+    <div key={product.id} className={child}>
       <div className='h-[349px] relative overflow-hidden product-image'>
         <img onClick={() => navigate(`/product/${product.id}`)} src={product.image} className='w-full h-full object-cover' alt="" />
         <span className='absolute top-4 left-4 font-medium py-1 px-[14px] rounded shadow bg-white'>NEW</span>
@@ -46,8 +46,8 @@ const Products = ({data, isAdmin, style}) => {
   ))
   return (
     <div className='container py-12'>
-      <p className='mb-12 text-[40px] font-medium'>Just in</p>
-      <div id='products' className='flex gap-3 overflow-auto'>{productItems}</div>
+      <p className={`mb-12 text-[40px] font-medium ${title.style}`}>{title.name}</p>
+      <div id='products' className={parent}>{productItems}</div>
     </div>
   )
 }
